@@ -44,7 +44,7 @@ class ComplexityData(object):
 
     def check_loc(self):
         """Check if DEU (Germany) is in loc column"""
-        if 'DEU' not in self.data['loc']:
+        if not any(self.data['loc']=='DEU'):
             raise ValueError("DEU is not present in loc column. Sign adjustment cannot be done!")
 
     def clean_data(self, val_errors_flag_input):
