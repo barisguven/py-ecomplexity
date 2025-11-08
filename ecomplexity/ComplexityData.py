@@ -30,6 +30,9 @@ class ComplexityData(object):
         # Standardize column names based on input
         self.rename_cols()
 
+        # Check if DEU (Germany) is in loc column
+        self.check_loc()
+
         # Clean data to handle NA's and such
         self.clean_data(val_errors_flag)
 
@@ -38,6 +41,11 @@ class ComplexityData(object):
         cols_map_inv = {v: k for k, v in self.cols_input.items()}
         self.data = self.data.rename(columns=cols_map_inv)
         self.data = self.data[["time", "loc", "prod", "val"]]
+
+    def check_loc(self):
+        """Check if DEU (Germany) is in loc column"""
+        if 'DEU' not in self.data['loc']:
+            raise ValueError("DEU is not present in loc column. Sign adjustment cannot be done!")
 
     def clean_data(self, val_errors_flag_input):
         """Clean data to remove non-numeric values, handle NA's and duplicates"""

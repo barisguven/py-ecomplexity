@@ -88,7 +88,8 @@ def calc_eci_pci(cdata):
         kc = mcp1 @ kp
 
         # Adjust sign of ECI and PCI so it makes sense, as per book
-        s1 = np.sign(np.corrcoef(diversity_valid, kc)[0, 1])
+        # s1 = np.sign(np.corrcoef(diversity_valid, kc)[0, 1])
+        s1 = np.sign(kc[mcp1.index=='DEU'])
         eci_t = s1 * kc
         pci_t = s1 * kp
 
